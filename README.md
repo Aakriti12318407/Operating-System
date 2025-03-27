@@ -7,3 +7,11 @@ def check_node_health(self):
     for node in self.node_directories:
         status[node] = os.path.exists(node)
     return status
+
+def display_node_health(self):
+    status = self.check_node_health()
+    for node, healthy in status.items():
+        if healthy:
+            print(f"Node '{node}': Healthy")
+        else:
+            print(f"Node '{node}': FAILED")
