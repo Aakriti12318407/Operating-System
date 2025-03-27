@@ -15,3 +15,23 @@ def display_node_health(self):
             print(f"Node '{node}': Healthy")
         else:
             print(f"Node '{node}': FAILED")
+
+def recover_node(self, node_directory):
+    """
+    Attempt to recover a failed node by copying files from a healthy node.
+    Uses the node at recovery_source_index as the source.
+    """
+    if os.path.exists(node_directory):
+        print(f"Node '{node_directory}' is already healthy.")
+        return
+    source_node = self.node_directories[self.recovery_source_index]
+    if not os.path.exists(source_node):
+        print(f"Source node '{source_node}' is not available for recovery.")
+        return
+    os.makedirs(node_directory)
+    for item in os.listdir(source_node):
+        src = os.path.join(source_node, item)
+        dst = os.path.join(node_directory, item)
+        if os.path.isfile(src):
+            shutil.copy(src, dst)
+    print(f"Recovered node '{node_directory}' using data from '{source_node}'.")
