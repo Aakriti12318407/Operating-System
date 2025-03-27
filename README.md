@@ -44,3 +44,18 @@ def auto_recover(self):
     for node, healthy in status.items():
         if not healthy:
             self.recover_node(node)
+
+def start_monitoring(self):
+    """
+    Start the monitoring loop that displays node health and automatically recovers failed nodes.
+    """
+    self._monitoring = True
+    print("Monitoring started. Press Ctrl+C to stop or use the interactive menu to stop.")
+    try:
+        while self._monitoring:
+            self.display_node_health()
+            self.auto_recover()
+            time.sleep(self.monitor_interval)
+    except KeyboardInterrupt:
+        print("Monitoring interrupted.")
+
