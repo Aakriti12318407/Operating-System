@@ -35,3 +35,12 @@ def recover_node(self, node_directory):
         if os.path.isfile(src):
             shutil.copy(src, dst)
     print(f"Recovered node '{node_directory}' using data from '{source_node}'.")
+
+def auto_recover(self):
+    """
+    Automatically recover any failed nodes by checking their health and triggering recovery.
+    """
+    status = self.check_node_health()
+    for node, healthy in status.items():
+        if not healthy:
+            self.recover_node(node)
