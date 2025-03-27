@@ -63,3 +63,44 @@ def stop_monitoring(self):
     self._monitoring = False
     print("Monitoring stopped.")
 
+def start_monitoring_in_thread(self):
+    """
+    Start the monitoring loop in a background thread.
+    """
+    monitor_thread = threading.Thread(target=self.start_monitoring)
+    monitor_thread.daemon = True  # So it does not block program exit
+    monitor_thread.start()
+    print("Monitoring started in background thread.")
+Standalone Interactive Interface for Module 3 (Monitoring & Recovery)
+def interactive_monitoring_recovery(): node_dirs = ["node1", "node2"] monitor_manager = MonitoringRecoveryManager(node_dirs, recovery_source_index=0, monitor_interval=5)
+
+menu = """
+Monitoring & Recovery Options:
+1: Display Node Health
+2: Manually Recover a Node
+3: Start Automatic Monitoring (in background)
+4: Stop Automatic Monitoring
+5: Exit
+"""
+
+while True:
+    print(menu)
+    choice = input("Enter your choice (1-5): ")
+    if choice == "1":
+        monitor_manager.display_node_health()
+    elif choice == "2":
+        node = input("Enter node directory to recover: ")
+        if node in node_dirs:
+            monitor_manager.recover_node(node)
+        else:
+            print("Invalid node directory.")
+    elif choice == "3":
+        monitor_manager.start_monitoring_in_thread()
+    elif choice == "4":
+        monitor_manager.stop_monitoring()
+    elif choice == "5":
+        monitor_manager.stop_monitoring()
+        print("Exiting Monitoring & Recovery session.")
+        break
+    else:
+        print("Invalid choice. Please try again.")
