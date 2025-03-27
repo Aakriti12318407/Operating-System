@@ -59,3 +59,7 @@ def start_monitoring(self):
     except KeyboardInterrupt:
         print("Monitoring interrupted.")
 
+def stop_monitoring(self):
+    self._monitoring = False
+    print("Monitoring stopped.")
+
